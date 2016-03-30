@@ -12,5 +12,10 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.rxjavademo.RxChangeActivity"
     tools:showIn="@layout/activity_rx_change">
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="请看Log日志"
+        android:textColor="#FF00FF"
+        android:textSize="30sp"/>
 </RelativeLayout>
