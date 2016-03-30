@@ -44,6 +44,168 @@ public class FiltrateActivity extends AppCompatActivity {
         firstMethod();
 
         //last
+        lastMethod();
+
+        //take
+        takeMethod();
+
+        //takeLast
+        takeLastMethod();
+
+        //skip
+        skipMethod();
+
+        //skipLast
+        skipLastMethod();
+
+        //sample
+        /**
+         * 定期发射Observable最近发射的数据项
+         */
+
+    }
+
+    private void skipLastMethod() {
+        /**
+         * 过滤Observable发射的后N项数据
+         * 使用SkipLast操作符修改原始Observable，
+         * 你可以忽略Observable'发射的后N项数据，只保留前面的数据。
+         *
+         * 使用SkipLast操作符，你可以忽略原始Observable发射的后N项数据，
+         * 只保留之前的数据。注意：这个机制是这样实现的：延迟原始Observable发射的任何数据项，直到它发射了N项数据。
+         * skipLast的这个变体默认不在任何特定的调度器上执行。
+         *  skipLast(int))
+         *
+         *  还有一个skipLast变体接受一个时长而不是数量参数。它会丢弃在原始Observable的生命周期内最后一段时间内发射的数据。
+         *  时长和时间单位通过参数指定。
+         *注意：这个机制是这样实现的：延迟原始Observable发射的任何数据项，直到自这次发射之后过了给定的时长。
+         *skipLast的这个变体默认在computation调度器上执行，但是你可以使用第三个参数指定其它的调度器。
+         *skipLast(long,TimeUnit))
+         *skipLast(long,TimeUnit,Scheduler))
+         */
+        Observable.just(1, 2, 5, 3, 4, 5).skipLast(4).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "skiplast complete");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG,"skiplast "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG,integer+"");
+            }
+        });
+    }
+
+    private void skipMethod() {
+        /**
+         * 过滤Observable发射的前N项数据
+         * 使用Skip操作符，你可以忽略Observable'发射的前N项数据，只保留之后的数据。
+         * RxJava中这个操作符叫skip。skip的这个变体默认不在任何特定的调度器上执行。skip(int))
+         *
+         * skip的这个变体接受一个时长而不是数量参数。它会丢弃原始Observable开始的那段时间发射的数据，
+         * 时长和时间单位通过参数指定。
+         *skip的这个变体默认在computation调度器上执行，但是你可以使用第三个参数指定其它的调度器。
+         *skip(long,TimeUnit))
+         *skip(long,TimeUnit,Scheduler))
+         */
+        Observable.just(1, 2, 3, 4, 5, 6).skip(4).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "skip complete");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG,"skip "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG,integer+"");
+            }
+        });
+    }
+
+    private void takeLastMethod() {
+        /**
+         * 发射Observable发射的最后N项数据
+         * 使用TakeLast操作符修改原始Observable，你可以只发射Observable'发射的后N项数据，忽略前面的数据。
+         * 使用takeLast操作符，你可以只发射原始Observable发射的后N项数据，忽略之前的数据。
+         * 注意：这会延迟原始Observable发射的任何数据项，直到它全部完成。
+         * takeLast的这个变体默认不在任何特定的调度器上执行。takeLast(int))
+         *
+         * 还有一个takeLast变体接受一个时长而不是数量参数。
+         * 它会发射在原始Observable的生命周期内最后一段时间内发射的数据。
+         * 时长和时间单位通过参数指定。注意：这会延迟原始Observable发射的任何数据项，直到它全部完成。
+         *takeLast的这个变体默认在computation调度器上执行，但是你可以使用第三个参数指定其它的调度器。
+         *
+         * 还有一个操作符叫takeLastBuffer，它和takeLast类似，，
+         * 唯一的不同是它把所有的数据项收集到一个List再发射，而不是依次发射一个。
+         *takeLastBuffer(int))
+         *takeLastBuffer(long,TimeUnit))
+         *takeLastBuffer(long,TimeUnit,Scheduler))
+         *takeLastBuffer(int,long,TimeUnit))
+         *takeLastBuffer(int,long,TimeUnit,Scheduler))
+         */
+
+        Observable.just(1, 2, 3, 4, 5, 6, 7).takeLast(5).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "takeLast complete");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG,"takeLast "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG,integer+"");
+            }
+        });
+    }
+
+    private void takeMethod() {
+        /**
+         * 只发射前面的N项数据
+         * 使用Take操作符让你可以修改Observable的行为，
+         * 只返回前面的N项数据，然后发射完成通知，忽略剩余的数据。
+         *RxJava将这个操作符实现为take函数。如果你对一个Observable使用take(n)（或它的同义词limit(n)）操作符，
+         * 而那个Observable发射的数据少于N项，那么take操作生成的Observable不会抛异常或发射onError通知，
+         * 在完成前它只会发射相同的少量数据。
+         * take(int)默认不任何特定的调度器上执行。
+         *
+         * take的这个变体接受一个时长而不是数量参数。
+         * 它会丢发射Observable开始的那段时间发射的数据，时长和时间单位通过参数指定。
+         * take的这个变体默认在computation调度器上执行，但是你可以使用第三个参数指定其它的调度器。
+         *take(long,TimeUnit))
+         *take(long,TimeUnit,Scheduler))
+         */
+        Observable.just(1, 2, 3, 4, 5, 6, 7, 8).take(5).subscribe(new Subscriber<Integer>() {
+            @Override
+            public void onCompleted() {
+                Log.d(TAG, "take complete");
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                Log.d(TAG,"take "+e.getMessage());
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                Log.d(TAG,integer+"");
+            }
+        });
+    }
+
+    private void lastMethod() {
         /**
          * 只发射最后一项（或者满足某个条件的最后一项）数据
          *
@@ -64,7 +226,7 @@ public class FiltrateActivity extends AppCompatActivity {
                 .subscribe(new Subscriber<Integer>() {
                     @Override
                     public void onNext(Integer item) {
-                        Log.d(TAG,"Next: " + item);
+                        Log.d(TAG, "Next: " + item);
                     }
 
                     @Override
@@ -77,7 +239,6 @@ public class FiltrateActivity extends AppCompatActivity {
                         Log.d(TAG,"last complete.");
                     }
                 });
-
     }
 
     private void firstMethod() {
