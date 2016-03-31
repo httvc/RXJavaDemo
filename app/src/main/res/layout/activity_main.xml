@@ -30,9 +30,16 @@
         android:textColor="#0000FF"
         />
     <Button
+        android:id="@+id/btn_filter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:text="过滤操作"
         android:onClick="btnRxFilter"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btn_filter"
+        android:text="异步网络解析"
+        android:onClick="btnRxsyc"/>
 </RelativeLayout>

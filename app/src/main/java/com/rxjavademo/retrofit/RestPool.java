@@ -7,6 +7,7 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
+import retrofit.RxJavaCallAdapterFactory;
 
 
 /**
@@ -51,6 +52,7 @@ public class RestPool {
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl("http://www.langtianhealth.com:20081/v2/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
+                .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
                 .client(client)
                 .build();
         GitHubService service = retrofit.create(GitHubService.class);

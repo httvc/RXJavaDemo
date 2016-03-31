@@ -161,4 +161,9 @@ public class MainActivity extends AppCompatActivity {
         Intent intent=new Intent(MainActivity.this,FiltrateActivity.class);
         startActivity(intent);
     }
+
+    public void btnRxsyc(View view) {
+        Intent intent=new Intent(MainActivity.this,SchedulerActivity.class);
+        startActivity(intent);
+    }
 }

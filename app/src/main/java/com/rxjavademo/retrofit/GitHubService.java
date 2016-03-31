@@ -6,6 +6,7 @@ import com.rxjavademo.bean.HomeImage;
 import retrofit.Call;
 import retrofit.http.GET;
 import retrofit.http.Query;
+import rx.Observable;
 
 /**
  * Created by Android Studio
@@ -16,4 +17,8 @@ import retrofit.http.Query;
 public interface GitHubService {
     @GET("system/main")
     Call<HomeImage> homeImageIcon(@Query("city") String chooseCity);
+
+    //用rxJava
+    @GET("system/main")
+    Observable<HomeImage> homeImageIcon1(@Query("city") String chooseCity);
 }
